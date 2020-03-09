@@ -1,14 +1,21 @@
 import React, { Component } from 'react'
 import { CirclePicker } from 'react-color';
+import Select from 'react-select';
+import '../css/TabsNav.css'
 
-import { SwatchesPicker } from 'react-color';
 
+const mediaList = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' },
+];
 
 export default class TabContentChannelDetail extends Component {
     constructor(props){
         super(props)
         this.state= {
             // playListData:PlayList
+            selectedOption: null,
             background: '#fff',
             playListData : [1,2]
         }
@@ -16,18 +23,66 @@ export default class TabContentChannelDetail extends Component {
     handleChangeComplete = (color) => {
         this.setState({ background: color.hex });
     };
+    handleChange = selectedOption => {
+        this.setState({ selectedOption });
+        console.log(`Option selected:`, selectedOption);
+    };
     render() {
+        const { selectedOption } = this.state;
         return (
             <div className="container">
                 <div className="row">
-                    <h5>playListData.name</h5>
+                <div className="col-lg-4">
+                    <div className="card cardsDevicesList">
+                        <div className="card-body">
+                            
+                        {/*  */}
+                        <button type="button" className="btn btn-light btn-for-playlist" data-toggle="modal" data-target="#playlist_details">
+                            playListData.name
+                        </button>
+
+
+                        <div className="modal fade" id="playlist_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                            <div className="modal-body">
+                            <form>
+
+                                <div className="form-group">
+                                    <label>Name : </label>
+                                    <input type="text" className="form-control" value={'here value will come safi'} />
+                                </div>
+                                <hr/>
+                                <label>Edit media</label>
+                                <div className="form-group"> 
+                                    <Select 
+                                    value={selectedOption}
+                                    onChange={this.handleChange}
+                                    options={mediaList}
+                                    isMulti= {true}
+                                    placeholder = {'Choose videos'}
+                                    />
+                                </div>
+                                <hr/>
+
+
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" className="btn btn-primary">Update</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div></div></div>
+                        {/*  */}
+                        </div>
+                    </div></div>
                 </div>
-            <button type="button" className="btn btn-primary addNewDeviceButton" data-toggle="modal" data-target="#add_new_device">
+            <button type="button" className="btn btn-primary addNewDeviceButton" data-toggle="modal" data-target="#add_new_playlist">
                 + Create new PlayList
             </button>
 
 
-            <div className="modal fade" id="add_new_device" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="add_new_playlist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                 <div className="modal-header">
@@ -46,11 +101,24 @@ export default class TabContentChannelDetail extends Component {
                 <hr/>
                 <div className="form-group">
                     <label>Color : </label>
-
-                    <CirclePicker className="colorPickerInPlayList"/>
-
+                    <CirclePicker className="colorPickerInPlayList"
+                            color={ this.state.background }
+                            onChangeComplete={ this.handleChangeComplete }
+                    />
+                </div>
+                <label>Select media</label>
+                <div className="form-group"> 
+                    <Select 
+                    value={selectedOption}
+                    onChange={this.handleChange}
+                    options={mediaList}
+                    isMulti= {true}
+                    placeholder = {'Choose videos'}
+                    />
                 </div>
                 <hr/>
+
+
                 <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" className="btn btn-primary">Upload</button>
