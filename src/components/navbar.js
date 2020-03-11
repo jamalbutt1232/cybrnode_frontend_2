@@ -1,58 +1,52 @@
 import React from 'react'
+import { Tab, Tabs,TabList ,TabPanel } from "react-tabs";
+import  TabAddVideos from './tabs_nav/TabAddVideos'
+import TabPlaylist from './tabs_nav/TabPlaylist'
+import '../css/TabsNav.css'
+import TabContentDevices from './TabContentDevices';
+import TabDevicesDetail from './tabs_nav/TabDevicesDetail'
+import TabContentDevicesDetail from './TabContentDevicesDetail';
+import TabContentVideos from './TabContentVideos';
+import TabChannelDetail from './tabs_nav/TabPlaylist';
+import TabPlaylistDetail from './TabPlaylistDetail'
+import Nav from './navbar'
+import {cybrnodelogo} from '../images/cybrnode-logo.png'
 
+import {Link } from 'react-router-dom'
 export default function navbar() {
     return (
-        <div>
-            <div class="wrapper">
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>Bootstrap Sidebar</h3>
-            </div>
+        <nav>
+            <div className="wrapper">
+            <div className="sidebar">
+                <img src={ cybrnodelogo } width="200px"/>
+                    <div className = "col-lg-4">
+                        <ul className="nav-links">
+                            <Link to="/devicesDetail">
+                                <li>
+                                    Driver
+                                </li>
+                            </Link>
+                            <Link to="/mediaDetail">
+                                <li>
+                                    Videos
+                                </li>
+                            </Link>
+                            <Link to="/playListDetail">
+                                <li>
+                                    Playlist
+                                </li>
+                            </Link>
+                            <Link to="/channelDetail">
+                                <li>
+                                    Channel
+                                </li>
+                            </Link>
+                        </ul>    
+                    </div> 
+                </div>
+            </div> 
 
-            <ul class="list-unstyled components">
-                <p>Dummy Heading</p>
-                <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#">Home 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Home 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Portfolio</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
         </nav>
 
-    </div>
-            
-        </div>
     )
 }

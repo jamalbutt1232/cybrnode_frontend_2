@@ -87,7 +87,7 @@ ul li:hover{
 
 .wrapper .sidebar{
     position: fixed;
-    width: 210px;
+    width: 200px;
     height: 100%;
     background-color: aliceblue;
     padding: 30px 0 ;
@@ -105,12 +105,6 @@ ul li:hover{
 
 .wrapper .sidebar ul :hover a{
     background-color: white;
-}
-
-.wrapper .sidebar .tabs .main_content{
-    width: 200px;
-    margin-left: 25%;
-
 }
 
 

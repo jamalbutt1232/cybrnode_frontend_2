@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { CirclePicker } from 'react-color';
 import Select from 'react-select';
+import TabPlaylist from '../components/tabs_nav/TabPlaylist'
+
 import '../css/TabsNav.css'
 
 
@@ -31,8 +33,10 @@ export default class TabContentChannelDetail extends Component {
         const { selectedOption } = this.state;
         return (
             <div className="container">
+                <TabPlaylist></TabPlaylist>
+                <hr/>
                 <div className="row">
-                <div className="col-lg-4">
+                    <div className="col-lg-4">
                     <div className="card cardsDevicesList">
                         <div className="card-body">
                             
@@ -75,7 +79,8 @@ export default class TabContentChannelDetail extends Component {
                         </div></div></div>
                         {/*  */}
                         </div>
-                    </div></div>
+                    </div>
+                    </div>
                 </div>
             <button type="button" className="btn btn-primary addNewDeviceButton" data-toggle="modal" data-target="#add_new_playlist">
                 + Create new PlayList

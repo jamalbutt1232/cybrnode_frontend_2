@@ -3,7 +3,7 @@ import React from 'react'
 export default function TabAddDevices() {
     return (
         <div >
-            <strong >Add Devices</strong>
+            <h3><center>Add Devices</center></h3>
                     
         </div>
     )
