@@ -1,31 +1,9 @@
 
-// export default class TabContentDevicesDetail extends Component {    
-//     constructor(props){
-//         super(props)
-//         this.state= {
-//             devicesdata:[1,3]
-//         }
-//     }
-//     render() {
-//         return (
-//             <div>                
-//                 {   
-//                     this.state.devicesdata.map(x=>{
-//                         // return <ul>{x.name}</ul>
-//                         return <ul>{x}</ul>
-//                     }
-                
-//                 )}
-//             </div>
-//         )
-//     }
-// }
-
-
 import React, { Component } from 'react'
 import Select from 'react-select';
+import TabDevicesDetail from './tabs_nav/TabDevicesDetail'
+
 import '../css/TabsNav.css'
-import styled from 'styled-components'
 const channelList = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
@@ -52,6 +30,8 @@ export default class TabContentDevices extends Component{
         const { selectedOption } = this.state;
     return (
         <div className="container formForAddingDevices">
+            <TabDevicesDetail></TabDevicesDetail>
+            <hr/>
             <div className="row">
                 <div className=" col-lg-8">
                     <div className="tab-content">

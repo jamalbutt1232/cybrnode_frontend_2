@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import '../css/TabsNav.css'
+import  TabAddDevices from './tabs_nav/TabAddDevices'
+
 
 export default class TabContentVideos extends Component {
   render() {
     return (
-      <div className="h1h1h1">
+      <div>
         <div className="container">
-          <h1><center><i>Media</i></center></h1>
+          <TabAddDevices/>
+          <hr/>
           <div className="row">
           <div className="card-group">
             <div className="card">

@@ -49,11 +49,8 @@ ul li:hover{
 .cardsDevicesList{
     margin-top: 2rem;
 }
-.dot {
-    /* margin-top: 5%; */
-    
+.dot {    
     margin-left: 8rem;
-
     height: 35px;
     width: 35px;
     background-color: maroon;
@@ -101,17 +98,16 @@ ul li:hover{
 }
 
 
-
-
-.wrapper .sidebar ul :hover a{
-    background-color: white;
-}
-
-
 .colorPickerInPlayList{
     margin-left: 25%;
 }
 
 .btn-for-playlist{
     margin-left: 75px;
+}
+
+.nav-links{
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
