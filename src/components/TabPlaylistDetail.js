@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { CirclePicker } from 'react-color';
 import Select from 'react-select';
 import TabPlaylist from '../components/tabs_nav/TabPlaylist'
-
+import TabSinglePlaylist from './TabSinglePlaylist'
 import '../css/TabsNav.css'
 
 
@@ -37,49 +37,7 @@ export default class TabContentChannelDetail extends Component {
                 <hr/>
                 <div className="row">
                     <div className="col-lg-4">
-                    <div className="card cardsDevicesList">
-                        <div className="card-body">
-                            
-                        {/*  */}
-                        <button type="button" className="btn btn-light btn-for-playlist" data-toggle="modal" data-target="#playlist_details">
-                            playListData.name
-                        </button>
-
-
-                        <div className="modal fade" id="playlist_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                            <div className="modal-body">
-                            <form>
-
-                                <div className="form-group">
-                                    <label>Name : </label>
-                                    <input type="text" className="form-control" value={'here value will come safi'} />
-                                </div>
-                                <hr/>
-                                <label>Edit media</label>
-                                <div className="form-group"> 
-                                    <Select 
-                                    value={selectedOption}
-                                    onChange={this.handleChange}
-                                    options={mediaList}
-                                    isMulti= {true}
-                                    placeholder = {'Choose videos'}
-                                    />
-                                </div>
-                                <hr/>
-
-
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" className="btn btn-primary">Update</button>
-                                </div>
-                            </form>
-                            </div>
-                        </div></div></div>
-                        {/*  */}
-                        </div>
-                    </div>
+                        <TabSinglePlaylist/>
                     </div>
                 </div>
             <button type="button" className="btn btn-primary addNewDeviceButton" data-toggle="modal" data-target="#add_new_playlist">
