@@ -13,9 +13,11 @@ let api = "/api/"
 let media = 'medias/'
 let upload= 'upload/'
 let playlist = 'playlists/'
-let scheduledplaylist = 'scheduledplaylist/'
+let scheduledplaylist = 'schedules/'
 let device = 'devices/'
 let channels = 'channels/'
+
+
 
 const getServiceData = async (url,data=undefined) => {
         
@@ -45,7 +47,6 @@ const postServiceData = async (url, params) => {
     
     try {
         return await axios.post(url,params)
-      
         }         
     
     catch (error) {
@@ -139,9 +140,9 @@ const deleteMedia = async(id)=>{
 
 
 
-const addScheduledEvent = async(data)=>{
+const addScheduledEvent = async(id,data)=>{
 
-    let url =  "http://"+ await getIpaddress()+"/api/" + scheduledplaylist
+    let url =  "http://"+ await getIpaddress()+"/api/"+channels+id+"/"+ scheduledplaylist
     let response = postServiceData(url,data);
 
     return response
@@ -168,9 +169,25 @@ const getScehdauls = async (date1,date2)=>{
     return axios.get('http://'+await getIpaddress()+api+scheduledplaylist+'/from/'+date1+'/to/'+date2)
 }
 
+const getScehdaulsForChannel = async(id)=>{
+
+    //"api/channels/channelId/shedule"
+    
+    console.log("THIS BC URL: ",'http://'+await getIpaddress()+api+channels+id+"/"+scheduledplaylist)
+
+
+    return axios.get('http://'+await getIpaddress()+api+channels+id+"/"+scheduledplaylist)
+
+
+
+}
+
 const updateSchedule = async(id,data)=>{
 
-    let url =  "http://"+ await getIpaddress()+"/api/" + scheduledplaylist +id
+    //"api/channels/channelId/shedule"
+
+
+    let url =  'http://'+await getIpaddress()+api+channels+id+"/"+scheduledplaylist+id
 
     return putServiceData(url,data)
 }
@@ -178,7 +195,7 @@ const updateSchedule = async(id,data)=>{
 
 const deleteSchedule = async(id) => {
 
-    let url =  "http://"+ await getIpaddress()+"/api/" + scheduledplaylist +id
+    let url =  'http://'+await getIpaddress()+api+channels+id+"/"+scheduledplaylist+id
 
     return deleteServiceData(url)
 }
@@ -247,7 +264,7 @@ export  {
 
         addPlaylist,getAllPlaylists,
           
-        addScheduledEvent,getScehdauls,updateSchedule,deleteSchedule,
+        addScheduledEvent,getScehdaulsForChannel,getScehdauls,updateSchedule,deleteSchedule,
          
         getAllDevices,addNewDevice,
         

@@ -216,9 +216,12 @@ export default class TabContentChannelDetail extends Component {
                         </div>
                         </form>
                         </div>
-                    </div></div></div>
+                    
+                    </div>
+                    
+                    </div>
+                    </div>
                 </div>
-             </div>
 
 
 
