@@ -24,7 +24,7 @@ export default class TabContentChannelDetail extends Component {
 
         getAllChannels().then(data=>{
 
-            console.log(data.data)
+            console.log("THIS IS THE DATA ",data.data)
 
             this.setState({channelsList:data.data})
         })

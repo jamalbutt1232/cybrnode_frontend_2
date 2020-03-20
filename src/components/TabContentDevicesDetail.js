@@ -32,8 +32,6 @@ export default class TabContentDevices extends Component{
 
         <div className="tabcontent">
 
-
-
             <div className="container formForAddingDevices">
                 <TabDevicesDetail></TabDevicesDetail>
                 <hr/>

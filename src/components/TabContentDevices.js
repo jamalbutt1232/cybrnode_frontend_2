@@ -100,9 +100,17 @@ export default class TabContentDevices extends Component{
 
                                     <span>
                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" href="#">Channel 1</a>
-                                            <a className="dropdown-item" href="#">Channel 2</a>
-                                            <a className="dropdown-item" href="#">Channel 3</a>
+                                           
+                                           
+                                           {this.state.channelList.map(channel=>{
+
+                                           return  <a className="dropdown-item" href="#">{channel.name}</a>
+                                           
+
+                                           })} 
+                                           
+                                           
+                                          
                                         </div>
 
                                     </span>

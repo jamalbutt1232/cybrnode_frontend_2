@@ -73,9 +73,6 @@ class Calendar extends Component {
 
           obj = {id:"",title:"",start:null,end:null};
         }
-
-
-
         this.setState({calendarEvents : schedule})
 
 
@@ -83,8 +80,6 @@ class Calendar extends Component {
   }
 
   componentDidMount() {
-
-
 
     this.setState({channelId:this.props.location.state._id})
 
