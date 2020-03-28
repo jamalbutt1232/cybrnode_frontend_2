@@ -83,6 +83,8 @@ class Calendar extends Component {
 
     this.setState({channelId:this.props.location.state._id})
 
+    console.log(this.props.location.state._id)
+
     let CalendarState = this.calendarComponentRef.current.getApi().state;
     
     CalendarState.currentDate = new Date();

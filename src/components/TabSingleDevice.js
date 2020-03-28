@@ -1,13 +1,15 @@
-import React from 'react'
+import React, {Component} from 'react'
 
 import {getAllChannels} from './Utils/Utils.js'
 
-export default class TabSingleDevice {
+export default class TabSingleDevice extends Component {
 
-    state={
-        channelList: []
+    constructor(props){
+        super(props)
+        this.state={
+            channelList: []
+        }
     }
-
 
     componentDidMount(){
 
@@ -27,7 +29,7 @@ export default class TabSingleDevice {
                 <div className="card cardsDevicesList">
                 <div className="card-body">
     
-                    <h6 className="card-subtitle mb-2 text-muted">Name of device</h6>                               
+                    <h6 className="card-subtitle mb-2 text-muted">{this.props.name}</h6>                               
                     <div className="dropdown">
                         <button className="btn btn-secondary dropdown-toggle btn-sm" 
                         type="button" id="dropdownMenuButton" 

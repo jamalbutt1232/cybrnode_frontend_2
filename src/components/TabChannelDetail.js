@@ -4,7 +4,7 @@ import { Link,Switch , Route} from 'react-router-dom'
 import TabChannel from '../components/tabs_nav/TabChannel'
 import {getAllChannels,addNewChannel,updateChannel,deleteChannel} from  './Utils/Utils.js'
 import '../css/TabsNav.css'
-
+import TabSingleChannel from './TabSingleChannel'
 
 let mediaList = [];
 
@@ -13,7 +13,7 @@ export default class TabContentChannelDetail extends Component {
         super(props)
         this.state= {
 
-            channelsList:[]
+            channelsList:[1,2,3,4,5]
 
       
         }
@@ -36,10 +36,9 @@ export default class TabContentChannelDetail extends Component {
         return (
 
             <div>
-
-                <ul style={{marginLeft:"20%"}}>
-
-                    {this.state.channelsList.map(channel=>{
+                <TabChannel/>
+                <hr/>
+                  {this.state.channelsList.map(channel=>{
 
                     return(        <Link to={{pathname:"/schedule",
                     
@@ -51,14 +50,15 @@ export default class TabContentChannelDetail extends Component {
                      }} >
                         
 
-                                           <li id={channel._id} key={channel._id}>{channel.name}</li>
+                                           <TabSingleChannel name={channel.name}/>
 
 
                                     </Link>) 
 
-                    })}
+                    })} 
 
-                </ul>
+
+                    
 
             </div>
      

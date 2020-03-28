@@ -3,15 +3,15 @@ import  TabAddDevices from './tabs_nav/TabAddDevices'
 import TabSingleDevice from './TabSingleDevice'
 
 import '../css/TabsNav.css'
-import {getAllChannels,addNewDevice} from './Utils/Utils.js'
+import {addNewDevice,getAllDevices} from './Utils/Utils.js'
 // import styled from 'styled-components'
-
+import Alert from "sweetalert2";
 
 
 export default class TabContentDevices extends Component{
     state = {
         selectedOption: null,
-        channelList: [],
+        deviceList:[],
         name:"",
         key:"",
         location:""
@@ -21,11 +21,11 @@ export default class TabContentDevices extends Component{
 
     componentDidMount(){
 
-        getAllChannels().then(channels=>{
+        getAllDevices().then(devices=>{
 
-            console.log(channels.data)
+            console.log(devices.data)
 
-            this.setState({channelList:channels.data})
+            this.setState({deviceList:devices.data})
 
 
         })
@@ -62,12 +62,44 @@ export default class TabContentDevices extends Component{
 
         if(this.state.name ==="" && this.state.key==="" && this.state.location===""){
 
+            Alert.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+              })
+
+
         }
 
         else{
 
             data = {name:this.state.name, key:this.state.key, location:this.state.location}
-            addNewDevice(data)
+            addNewDevice(data).then(data=>{
+                console.log(data)
+
+            if(data.statusText=="OK"){
+                
+            Alert.fire({
+                icon: 'success',
+                title: 'New Entry',
+                text: 'New Device Added',
+              })
+
+            }
+
+            else{
+
+                Alert.fire({
+                    icon: 'error',
+                    title: 'Something went wrong...',
+                    text: 'Try again',
+                  })
+
+            }
+
+
+
+            })
 
 
         }
@@ -86,37 +118,15 @@ export default class TabContentDevices extends Component{
                 <hr/>
                 <div className="row">
                     <div className="col-lg-4">
-                        <div className="card cardsDevicesList">
-                            <div className="card-body">
 
-                                <h6 className="card-subtitle mb-2 text-muted">Name of device</h6>                               
-                                <div className="dropdown">
-                                    <button className="btn btn-secondary dropdown-toggle btn-sm" 
-                                    type="button" id="dropdownMenuButton" 
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Select Channel
-                                    </button>
-                                    <span className="dot"></span>
 
-                                    <span>
-                                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                           
-                                           
-                                           {this.state.channelList.map(channel=>{
+                    {this.state.deviceList.map(device=>{
 
-                                           return  <a className="dropdown-item" href="#">{channel.name}</a>
-                                           
+                        return     <TabSingleDevice name={device.name}/>
+                    
 
-                                           })} 
-                                           
-                                           
-                                          
-                                        </div>
+                    })} 
 
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <button type="button" className="btn btn-primary addNewDeviceButton" data-toggle="modal" data-target="#add_new_device">
