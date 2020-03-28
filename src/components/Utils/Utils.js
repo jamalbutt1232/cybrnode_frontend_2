@@ -5,7 +5,7 @@ const getIpaddress = async()=>{
 
     //let resp = await axios.get("http://127.0.0.1:4202/getip")
 
-    return "http://35.226.22.56" +":4202"
+    return "35.226.22.56" +":4202"
 
 }
 
