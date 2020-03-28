@@ -3,9 +3,9 @@ import axios from 'axios'
 
 const getIpaddress = async()=>{
 
-    let resp = await axios.get("http://127.0.0.1:4202/getip")
+    //let resp = await axios.get("http://127.0.0.1:4202/getip")
 
-    return resp.data.ip +":4202"
+    return "http://35.226.22.56" +":4202"
 
 }
 
