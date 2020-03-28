@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import { CirclePicker } from 'react-color';
 import Select from 'react-select';
 import TabPlaylist from '../components/tabs_nav/TabPlaylist'
-import TabSinglePlaylist from './TabSinglePlaylist'
+import TabSinglePlaylist from './TabSinglePlaylist.js'
+import {getAllPlaylists,addPlaylist,getAllMedia} from  './Utils/Utils.js'
 import '../css/TabsNav.css'
 
 
-const mediaList = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
+let mediaList = [
 ];
 
 export default class TabContentChannelDetail extends Component {
@@ -19,15 +17,100 @@ export default class TabContentChannelDetail extends Component {
             // playListData:PlayList
             selectedOption: null,
             background: '#fff',
-            playListData : [1,2]
+            playListData : [],
+            mediaData:[],
+            mediaSelected:[],
+            playlistName:""
         }
     }
+
+
+    componentDidMount() {
+
+        getAllPlaylists().then(playlist => {
+
+            console.log(playlist.data)
+
+            this.setState({playListData:playlist.data})
+
+        })
+
+
+        getAllMedia().then(media => {
+
+            console.log(media)
+
+            this.setState({mediaData:media.data})
+
+            let mediaFiles ={value:"",label:""};
+
+            for(let i=0;i<media.data.length;i++){
+
+                mediaFiles['value'] = media.data[i]._id
+                mediaFiles['label'] = media.data[i].name
+
+                mediaList.push(mediaFiles)
+
+                mediaFiles ={value:"",label:""};
+
+            }
+
+            console.log("Media List ",mediaList)
+
+        })
+    }
+
+
+
+    setName=(e) => {
+
+        console.log(e.target.value)
+        this.setState({playlistName:e.target.value})
+    }
+
+    findByKey =(key, value) =>{
+        return (item, i) => item[key] === value
+    }
+
+
+    AddnewPlaylist=()=>{
+
+       let data={}
+
+        if(this.state.playlistName==="", this.state.selectedOption==null){
+
+        }
+
+        else{
+
+            let media =[]
+
+            for(let i=0;i<this.state.selectedOption.length;i++){
+            
+                media.push(this.state.selectedOption[i]["value"])
+
+            }
+
+            console.log(media)
+
+            data  = {name:this.state.playlistName,color:this.state.background,media:media}
+
+            addPlaylist(data)
+
+            }
+            
+            
+        }
+
+    
+
     handleChangeComplete = (color) => {
         this.setState({ background: color.hex });
     };
     handleChange = selectedOption => {
         this.setState({ selectedOption });
         console.log(`Option selected:`, selectedOption);
+
     };
     render() {
         const { selectedOption } = this.state;
@@ -37,7 +120,13 @@ export default class TabContentChannelDetail extends Component {
                 <hr/>
                 <div className="row">
                     <div className="col-lg-4">
-                        <TabSinglePlaylist/>
+                            {this.state.playListData.map(playlist =>{
+
+                                return <TabSinglePlaylist name ={playlist.name} />
+
+                    
+                            })}
+     
                     </div>
                 </div>
             <button type="button" className="btn btn-primary addNewDeviceButton" data-toggle="modal" data-target="#add_new_playlist">
@@ -45,51 +134,57 @@ export default class TabContentChannelDetail extends Component {
             </button>
 
 
-            <div className="modal fade" id="add_new_playlist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog" role="document">
-                <div className="modal-content">
-                <div className="modal-header">
-                    <h4 className="modal-title newDeviceModal" id="exampleModalLabel">New PlayList</h4>
-                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div className="modal-body">
-                <form>
+                    <div className="modal fade" id="add_new_playlist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                            <h4 className="modal-title newDeviceModal" id="exampleModalLabel">New PlayList</h4>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                        <form>
 
-                <div className="form-group">
-                    <label>Name : </label>
-                    <input type="text" className="form-control" placeholder="Enter playlist name" />
-                </div>
-                <hr/>
-                <div className="form-group">
-                    <label>Color : </label>
-                    <CirclePicker className="colorPickerInPlayList"
-                            color={ this.state.background }
-                            onChangeComplete={ this.handleChangeComplete }
-                    />
-                </div>
-                <label>Select media</label>
-                <div className="form-group"> 
-                    <Select 
-                    value={selectedOption}
-                    onChange={this.handleChange}
-                    options={mediaList}
-                    isMulti= {true}
-                    placeholder = {'Choose videos'}
-                    />
-                </div>
-                <hr/>
+                        <div className="form-group">
+                            <label>Name : </label>
+                            <input type="text" className="form-control" placeholder="Enter playlist name" onChange={this.setName.bind(this)} />
+                        </div>
+                        <hr/>
+                        <div className="form-group">
+                            <label>Color : </label>
+                            <CirclePicker className="colorPickerInPlayList"
+                                    color={ this.state.background }
+                                    onChangeComplete={ this.handleChangeComplete }
+                            />
+                        </div>
+                        <label>Select media</label>
+                        <div className="form-group"> 
+                            <Select 
+                            value={selectedOption}
+                            onChange={this.handleChange}
+                            options={mediaList}
+                            isMulti= {true}
+                            placeholder = {'Choose videos'}
+                            />
+                        </div>
+                        <hr/>
 
 
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Upload</button>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary" onClick={this.AddnewPlaylist.bind(this)}>Upload</button>
+                        </div>
+                        </form>
+                        </div>
+                    
+                    </div>
+                    
+                    </div>
+                    </div>
                 </div>
-                </form>
-                </div>
-            </div></div></div>
-          </div>
+
+
 
         )
     }

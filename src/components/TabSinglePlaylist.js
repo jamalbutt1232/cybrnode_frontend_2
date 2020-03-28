@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import { CirclePicker } from 'react-color';
 import Select from 'react-select';
 import TabPlaylist from '../components/tabs_nav/TabPlaylist'
+import {getAllMedia} from  './Utils/Utils.js'
 
 import '../css/TabsNav.css'
-const mediaList = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
+
+let mediaList = [
 ];
 
 export default class TabSinglePlaylist extends Component {
@@ -15,9 +14,10 @@ export default class TabSinglePlaylist extends Component {
         super(props)
         this.state= {
             // playListData:PlayList
-            selectedOption: null,
-            background: '#fff',
-            playListData : [1,2]
+         
+            mediaData:[],
+            mediaSelected:[],
+            playlistName:""
         }
     }
     handleChangeComplete = (color) => {
@@ -27,6 +27,33 @@ export default class TabSinglePlaylist extends Component {
         this.setState({ selectedOption });
         console.log(`Option selected:`, selectedOption);
     };
+    componentDidMount() {
+
+
+        getAllMedia().then(media => {
+
+            console.log(media)
+
+            this.setState({mediaData:media.data})
+
+            let mediaFiles ={value:"",label:""};
+
+            for(let i=0;i<media.data.length;i++){
+
+                mediaFiles['value'] = media.data[i]._id
+                mediaFiles['label'] = media.data[i].name
+
+                mediaList.push(mediaFiles)
+
+                mediaFiles ={value:"",label:""};
+
+            }
+
+            console.log("Media List ",mediaList)
+
+        })
+    }
+
     render() {
         const { selectedOption } = this.state;
 
@@ -37,7 +64,7 @@ export default class TabSinglePlaylist extends Component {
                         
 
                     <button type="button" className="btn btn-light btn-for-playlist" data-toggle="modal" data-target="#playlist_details">
-                        playListData.name
+                        {this.props.name}
                     </button>
 
 
@@ -48,7 +75,9 @@ export default class TabSinglePlaylist extends Component {
                         <form>
 
                             <div className="form-group">
-                                <label>Name : </label>
+                                <label>                        
+                                    {this.props.name}
+                                </label>
                                 <input type="text" className="form-control" value={'here value will come safi'} />
                             </div>
                             <hr/>
