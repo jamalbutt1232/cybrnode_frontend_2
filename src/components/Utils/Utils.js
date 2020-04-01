@@ -3,15 +3,24 @@ import axios from 'axios'
 import Alert from "sweetalert2";
 
 
-let production=false;
+let deployed=true;
 
 const getIpaddress = async()=>{
 
-    //let resp = await axios.get("http://127.0.0.1:4202/getip")
 
-    //console.log(resp)
+    if (!deployed){
+        
+            let resp = await axios.get("http://127.0.0.1:4202/getip")
+        
+            console.log(resp)
 
-    return "http://35.226.22.56" +":4202"
+            return resp.data.ip +":4202"
+    }
+
+    else{
+        return "35.226.22.56" +":4202"
+    
+    }
 
 }
 
