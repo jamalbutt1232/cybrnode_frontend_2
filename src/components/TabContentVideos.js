@@ -3,7 +3,7 @@ import '../css/TabsNav.css'
 import TabSingleVideo from './TabSingleVideo.js'
 import  TabAddDevices from './tabs_nav/TabAddDevices'
 
-import {getAllMedia,uploadFile} from "./Utils/Utils.js"
+import {getAllMedia,uploadFile, displayMessageOnNewEntry} from "./Utils/Utils.js"
 import Alert from "sweetalert2";
 
 
@@ -71,21 +71,7 @@ export default class TabContentVideos extends Component {
 
         console.log("DATA",data)
 
-        if(data.status===200){
-
-          window.location.reload()
-
-        }
-
-        else{
-          Alert.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong check your internet connection!'
-          })
-
-      }
-
+        displayMessageOnNewEntry(data)
 
     })
     

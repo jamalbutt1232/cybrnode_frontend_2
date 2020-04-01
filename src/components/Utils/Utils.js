@@ -1,11 +1,14 @@
 
 import axios from 'axios'
+import Alert from "sweetalert2";
 
 const getIpaddress = async()=>{
 
-    //let resp = await axios.get("http://127.0.0.1:4202/getip")
+    let resp = await axios.get("http://127.0.0.1:4202/getip")
 
-    return "35.226.22.56" +":4202"
+    console.log(resp)
+
+    return resp.data.ip +":4202"
 
 }
 
@@ -20,6 +23,8 @@ let channels = 'channels/'
 
 
 const getServiceData = async (url,data=undefined) => {
+
+    //console.log("get requests to: "+url)
         
     try {
         
@@ -44,6 +49,9 @@ const getServiceData = async (url,data=undefined) => {
 };
 
 const postServiceData = async (url, params) => {
+
+    console.log("post requests to: "+url)
+
     
     try {
         return await axios.post(url,params)
@@ -60,6 +68,7 @@ const postServiceData = async (url, params) => {
 
 const deleteServiceData = async(url) => {
 
+    console.log("get requests to: "+url)
 
     try {
         
@@ -80,7 +89,9 @@ const deleteServiceData = async(url) => {
 };
 
 const putServiceData = async (url, params) => {
-    
+
+    console.log("get requests to: "+url)
+
     try {
         return await axios.put(url,params)
       
@@ -96,6 +107,55 @@ const putServiceData = async (url, params) => {
 };
 
 
+
+const displayMessageOnNewEntry = (data)=>{
+
+    if (data!==null){
+
+        if(data.statusText=="OK"){
+    
+            Alert.fire({
+                icon: 'success',
+                title: 'New Entry',
+                text: 'New Device Added',
+              })
+
+              setTimeout(()=>{ 
+
+                window.location.reload();
+
+             }, 
+             
+             1000);
+
+
+            }
+
+            else{
+
+                Alert.fire({
+                    icon: 'error',
+                    title: 'Something went wrong...',
+                    text: 'Try again',
+                  })
+
+            }
+
+    }
+
+
+    else {
+        Alert.fire({
+            icon: 'error',
+            title: 'Looks like we ran into a problem...',
+            text: 'Try again',
+          })
+
+    }
+
+
+};
+
 const addPlaylist = async (data)=>{
 
     let url =  "http://"+ await getIpaddress()+"/api/" + playlist
@@ -103,7 +163,13 @@ const addPlaylist = async (data)=>{
 }
 
 
+const deletePlaylist = async(id)=>{
 
+    let url =  "http://"+ await getIpaddress()+"/api/" + playlist+id
+    return deleteServiceData(url)
+
+
+}
 
 const getAllPlaylists = async (data)=>{
     let url =  "http://"+ await getIpaddress()+"/api/" + playlist
@@ -205,6 +271,16 @@ const getAllDevices = async()=>{
     
     let url =  "http://"+ await getIpaddress()+"/api/" + device
 
+    
+    return getServiceData(url)
+
+}
+
+
+const getDeviceStatus = async(key)=>{
+
+    let url =  "http://"+ await getIpaddress()+"/api/" + device +"key/"+key
+
     return getServiceData(url)
 
 }
@@ -259,16 +335,17 @@ const deleteChannel = async(id)=>{
 
 export  { 
 
-
         uploadFile,getAllMedia,deleteMedia,
 
-        addPlaylist,getAllPlaylists,
+        addPlaylist,getAllPlaylists,deletePlaylist,
           
         addScheduledEvent,getScehdaulsForChannel,getScehdauls,updateSchedule,deleteSchedule,
          
-        getAllDevices,addNewDevice,
+        getAllDevices,addNewDevice,getDeviceStatus,
         
-        getAllChannels,addNewChannel,updateChannel,deleteChannel
+        getAllChannels,addNewChannel,updateChannel,deleteChannel,
+
+        displayMessageOnNewEntry
     
 
         };

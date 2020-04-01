@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Link,Switch , Route} from 'react-router-dom'
 
 import TabChannel from '../components/tabs_nav/TabChannel'
-import {getAllChannels,addNewChannel,updateChannel,deleteChannel} from  './Utils/Utils.js'
+import {getAllChannels,addNewChannel,updateChannel,deleteChannel,displayMessageOnNewEntry} from  './Utils/Utils.js'
 import '../css/TabsNav.css'
 import TabSingleChannel from './TabSingleChannel'
 import Alert from "sweetalert2";
@@ -15,7 +14,7 @@ export default class TabContentChannelDetail extends Component {
         super(props)
         this.state= {
 
-            channelsList:[1,2,3,4,5]
+            channelsList:[]
 
       
         }
@@ -60,29 +59,7 @@ export default class TabContentChannelDetail extends Component {
     
             data = {name:this.state.name}
             addNewChannel(data).then(data=>{
-                console.log(data)
-    
-            if(data.statusText=="OK"){
-                
-            Alert.fire({
-                icon: 'success',
-                title: 'New Entry',
-                text: 'New Device Added',
-              })
-    
-            }
-    
-            else{
-    
-                Alert.fire({
-                    icon: 'error',
-                    title: 'Something went wrong...',
-                    text: 'Try again',
-                  })
-    
-            }
-    
-    
+                displayMessageOnNewEntry(data)
     
             })
     
@@ -100,20 +77,15 @@ export default class TabContentChannelDetail extends Component {
                 <hr/>
                   {this.state.channelsList.map(channel=>{
 
-                    return(        <Link to={{pathname:"/schedule",
-                    
-                                    state: {
-                                        _id: channel._id
-                                        }
+                    return(       <div> 
                                         
-                                        
-                     }} >
-                        
+                                    <TabSingleChannel name={channel.name} channel_id={channel._id}/>
 
-                                           <TabSingleChannel name={channel.name}/>
-
-
-                                    </Link>) 
+                                                                   
+                                    </div>
+                                    
+                                    
+                                    ) 
 
                     })} 
 

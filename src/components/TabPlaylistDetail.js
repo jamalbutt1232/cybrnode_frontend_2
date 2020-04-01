@@ -3,7 +3,8 @@ import { CirclePicker } from 'react-color';
 import Select from 'react-select';
 import TabPlaylist from '../components/tabs_nav/TabPlaylist'
 import TabSinglePlaylist from './TabSinglePlaylist.js'
-import {getAllPlaylists,addPlaylist,getAllMedia} from  './Utils/Utils.js'
+import {getAllPlaylists,addPlaylist,getAllMedia,displayMessageOnNewEntry} from  './Utils/Utils.js'
+import Alert from "sweetalert2";
 import '../css/TabsNav.css'
 
 
@@ -77,7 +78,13 @@ export default class TabContentChannelDetail extends Component {
 
        let data={}
 
-        if(this.state.playlistName==="", this.state.selectedOption==null){
+        if(this.state.playlistName==="" || this.state.selectedOption==null){
+
+            Alert.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'You missed a few fields!',
+              })
 
         }
 
@@ -95,7 +102,11 @@ export default class TabContentChannelDetail extends Component {
 
             data  = {name:this.state.playlistName,color:this.state.background,media:media}
 
-            addPlaylist(data)
+            addPlaylist(data).then(data=>{
+
+                displayMessageOnNewEntry(data);
+            
+            })
 
             }
             
@@ -122,8 +133,7 @@ export default class TabContentChannelDetail extends Component {
                     <div className="col-lg-4">
                             {this.state.playListData.map(playlist =>{
 
-                                return <TabSinglePlaylist name ={playlist.name} />
-
+                                return <TabSinglePlaylist name ={playlist.name} id={playlist._id} />
                     
                             })}
      

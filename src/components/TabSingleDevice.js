@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {getAllChannels} from './Utils/Utils.js'
+import {getAllChannels,getDeviceStatus} from './Utils/Utils.js'
 
 export default class TabSingleDevice extends Component {
 
@@ -20,6 +20,20 @@ export default class TabSingleDevice extends Component {
             this.setState({channelList:channels.data})
 
         })
+        console.log(this.props.id)
+
+        setInterval(()=>{
+
+
+            getDeviceStatus(this.props.id).then(data=>{
+                console.log(data)
+            })
+
+
+        },10000)
+
+
+
     }
 
     render() {

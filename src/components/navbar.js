@@ -15,7 +15,7 @@ export default function navbar() {
                         <ul className="nav-links">
                             <li className="link-wrapper">
                                 <NavLink to="/devicesDetail" activeClassName="active">
-                                    Driver
+                                    Devices
                                 </NavLink>
                             </li>
                             <li className="link-wrapper">

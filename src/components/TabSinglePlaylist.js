@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { CirclePicker } from 'react-color';
 import Select from 'react-select';
 import TabPlaylist from '../components/tabs_nav/TabPlaylist'
-import {getAllMedia} from  './Utils/Utils.js'
+import {getAllMedia,deletePlaylist,displayMessageOnNewEntry} from  './Utils/Utils.js'
 
 import '../css/TabsNav.css'
 
@@ -27,6 +27,18 @@ export default class TabSinglePlaylist extends Component {
         this.setState({ selectedOption });
         console.log(`Option selected:`, selectedOption);
     };
+
+    onDelete = ()=>{
+
+        deletePlaylist(this.props.id).then(data=>{
+            displayMessageOnNewEntry(data)
+        })
+        
+    }
+
+
+
+
     componentDidMount() {
 
 
@@ -66,6 +78,11 @@ export default class TabSinglePlaylist extends Component {
                     <button type="button" className="btn btn-light btn-for-playlist" data-toggle="modal" data-target="#playlist_details">
                         {this.props.name}
                     </button>
+
+                    <button type="button" className="btn btn-light btn-for-playlist" data-toggle="modal" data-target="#playlist_details" onClick={this.onDelete.bind()}>
+                        Delete
+                    </button>
+
 
 
                     <div className="modal fade" id="playlist_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

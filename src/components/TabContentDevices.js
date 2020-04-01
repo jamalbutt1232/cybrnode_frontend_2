@@ -3,7 +3,7 @@ import  TabAddDevices from './tabs_nav/TabAddDevices'
 import TabSingleDevice from './TabSingleDevice'
 
 import '../css/TabsNav.css'
-import {addNewDevice,getAllDevices} from './Utils/Utils.js'
+import {addNewDevice,getAllDevices,displayMessageOnNewEntry} from './Utils/Utils.js'
 // import styled from 'styled-components'
 import Alert from "sweetalert2";
 
@@ -23,12 +23,14 @@ export default class TabContentDevices extends Component{
 
         getAllDevices().then(devices=>{
 
-            console.log(devices.data)
+            console.log(devices)
 
             this.setState({deviceList:devices.data})
-
-
         })
+
+        
+
+
 
 
     }
@@ -44,11 +46,7 @@ export default class TabContentDevices extends Component{
 
     }
 
-    setKey = (e) => {
-
-        this.setState({key: e.target.value})
-
-    }
+ 
 
     setLocation = (e) => {
 
@@ -60,7 +58,7 @@ export default class TabContentDevices extends Component{
 
         let data ={};
 
-        if(this.state.name ==="" && this.state.key==="" && this.state.location===""){
+        if(this.state.name ===""  || this.state.location===""){
 
             Alert.fire({
                 icon: 'error',
@@ -76,28 +74,7 @@ export default class TabContentDevices extends Component{
             data = {name:this.state.name, key:this.state.key, location:this.state.location}
             addNewDevice(data).then(data=>{
                 console.log(data)
-
-            if(data.statusText=="OK"){
-                
-            Alert.fire({
-                icon: 'success',
-                title: 'New Entry',
-                text: 'New Device Added',
-              })
-
-            }
-
-            else{
-
-                Alert.fire({
-                    icon: 'error',
-                    title: 'Something went wrong...',
-                    text: 'Try again',
-                  })
-
-            }
-
-
+                displayMessageOnNewEntry(data);
 
             })
 
@@ -122,7 +99,9 @@ export default class TabContentDevices extends Component{
 
                     {this.state.deviceList.map(device=>{
 
-                        return     <TabSingleDevice name={device.name}/>
+                                    console.log(device.key)
+
+                        return     <TabSingleDevice name={device.name} id={device.key}/>
                     
 
                     })} 
@@ -145,10 +124,6 @@ export default class TabContentDevices extends Component{
                         </div>
                         <div className="modal-body">
                             <form>
-                                <div className="form-group">
-                                    <label>Key</label>
-                                    <input type="text" className="form-control" placeholder="Enter key" onChange={this.setKey.bind(this)}/>
-                                </div>
                                 <div className="form-group">
                                     <label>Name</label>
                                     <input type="text" className="form-control" placeholder="Enter device name" onChange={this.setName.bind(this)}/>
