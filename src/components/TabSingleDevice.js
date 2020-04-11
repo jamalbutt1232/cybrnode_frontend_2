@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {getAllChannels,getDeviceStatus} from './Utils/Utils.js'
+import {getAllChannels,getDeviceStatus,assignChannelToDevice} from './Utils/Utils.js'
 
 export default class TabSingleDevice extends Component {
 
@@ -9,6 +9,22 @@ export default class TabSingleDevice extends Component {
         this.state={
             channelList: []
         }
+    }
+
+
+    AssignChannel = (channel_id)=>{
+        
+        let channel_assingment_data = {
+            
+            subscribed_channel: channel_id,
+        }
+
+
+        console.log("ID : ",channel_assingment_data)
+
+        assignChannelToDevice(channel_assingment_data,this.props.id)
+
+
     }
 
     componentDidMount(){
@@ -26,7 +42,7 @@ export default class TabSingleDevice extends Component {
 
 
             getDeviceStatus(this.props.id).then(data=>{
-                console.log(data)
+              //  console.log(data)
             })
 
 
@@ -56,7 +72,7 @@ export default class TabSingleDevice extends Component {
                             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             {this.state.channelList.map(channel=>{
 
-                                return  <a className="dropdown-item" href="#">{channel.name}</a>
+                                return  <a className="dropdown-item" href="#" onClick={this.AssignChannel.bind(this,channel._id)}>{channel.name}</a>
 
                             })} 
 

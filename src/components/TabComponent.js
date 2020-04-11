@@ -2,16 +2,14 @@ import React, { Component } from 'react'
 
 import { Tab, Tabs,TabList ,TabPanel } from "react-tabs";
 
-import TabPlaylist from './tabs_nav/TabPlaylist'
 import '../css/TabsNav.css'
 import TabContentDevices from './TabContentDevices';
-import TabContentDevicesDetail from './TabContentDevicesDetail';
 import TabContentVideos from './TabContentVideos';
 import TabChannelDetail from './TabChannelDetail';
-import {cybrnodelogo} from '../images/cybrnode-logo.png'
 import TabPlaylistDetail from './TabPlaylistDetail'
 import Schedule from './Schedule'
-
+import SignupForm from './SignupForm'
+import Login from './LoginForm'
 import Nav from './navbar'
 import {BrowserRouter as Router,Switch, Route } from 'react-router-dom'
 
@@ -21,19 +19,25 @@ export default class TabComponent extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="row">
                 <Router>
-                    <Nav/>
-                    <Switch>
-                        <Route path="/devicesDetail" component={TabContentDevices}/>
-                        <Route path="/mediaDetail" component={TabContentVideos}/>
-                        <Route path="/playListDetail" component={TabPlaylistDetail}/>
-                        <Route path="/channelDetail" component={TabChannelDetail}/>
-                        <Route path="/channelDetail" component={TabChannelDetail}/>
-                        <Route path="/schedule" component={Schedule}/>
+                    <div className="col-lg-3">
+                        <Nav/>
+                    </div>
+                    <div className="col-lg-9">
+                        <Switch>
+                            <Route path="/schedule" component={Schedule}/>
+                            <Route path="/devicesDetail" component={TabContentDevices}/>
+                            <Route path="/mediaDetail" component={TabContentVideos}/>
+                            <Route path="/playListDetail" component={TabPlaylistDetail}/>
+                            <Route path="/channelDetail" component={TabChannelDetail}/>
+                            <Route path="/channelDetail" component={TabChannelDetail}/>
+                            <Route path="/" component={SignupForm}/>
+                            <Route path="/login" component={Login}/>
 
-                    </Switch>
-    
+
+                        </Switch>
+                    </div>
                 </Router>
 
             </div>

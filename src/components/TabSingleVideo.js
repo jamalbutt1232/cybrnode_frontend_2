@@ -17,11 +17,11 @@ export default class TabSingleVideo extends Component{
 
 
 
+
               <div className="card-body">
                 <center><h5 className="card-title">{this.props.name}</h5></center>
-              </div>
-
-            </div>
+              </div> 
+                  </div>
           </div>
         )
 

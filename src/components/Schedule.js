@@ -1,3 +1,4 @@
+import '../css/TabsNav.css'
 import React, { Component } from "react";
 import { Col, Row } from "react-bootstrap";
 import FullCalendar from "@fullcalendar/react";
@@ -10,6 +11,8 @@ import "@fullcalendar/daygrid/main.css";
 import "@fullcalendar/timegrid/main.css";
 import { getAllPlaylists,addScheduledEvent,getScehdaulsForChannel,updateSchedule,deleteSchedule} from  './Utils/Utils.js'
 import './CalenderStyles.css'
+import '../css/TabsNav.css'
+
 
 
 class Calendar extends Component {
@@ -349,7 +352,7 @@ class Calendar extends Component {
 
   render() {
     return (
-      <div className="animated fadeIn p-4 demo-app" >
+      <div className="animated fadeIn p-4 demo-app jackass" >
         <Row>
 
         <Col>

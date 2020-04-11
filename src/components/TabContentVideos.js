@@ -89,13 +89,12 @@ export default class TabContentVideos extends Component {
           <hr/>
           <div className="row">
 
-          {this.state.mediaList.map(media =>{
+            {this.state.mediaList.map(media =>{
+              
+                return <TabSingleVideo name={media.name}/>
 
-            
-            return <TabSingleVideo name={media.name}/>
-
-
-          })}
+            })}
+          
 
           </div>
           <button type="button" className="btn btn-primary addNewDeviceButton" data-toggle="modal" data-target="#add_new_device">

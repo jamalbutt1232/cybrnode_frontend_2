@@ -1,9 +1,11 @@
 
 import axios from 'axios'
+
 import Alert from "sweetalert2";
 
+axios.defaults.headers.common = {'Authorization': 'bearer '+localStorage.getItem('token')}
 
-let deployed=true;
+let deployed=false;
 
 const getIpaddress = async()=>{
 
@@ -31,12 +33,14 @@ let playlist = 'playlists/'
 let scheduledplaylist = 'schedules/'
 let device = 'devices/'
 let channels = 'channels/'
-
+let users = 'user/'
+let signup = 'register'
+let login = 'login'
 
 
 const getServiceData = async (url,data=undefined) => {
 
-    //console.log("get requests to: "+url)
+    console.log("get requests to: "+url)
         
     try {
         
@@ -80,7 +84,7 @@ const postServiceData = async (url, params) => {
 
 const deleteServiceData = async(url) => {
 
-    console.log("get requests to: "+url)
+    console.log("delete requests to: "+url)
 
     try {
         
@@ -102,7 +106,7 @@ const deleteServiceData = async(url) => {
 
 const putServiceData = async (url, params) => {
 
-    console.log("get requests to: "+url)
+    console.log("put requests to: "+url)
 
     try {
         return await axios.put(url,params)
@@ -190,11 +194,7 @@ const getAllPlaylists = async (data)=>{
    
     return resp
 
-
 }
-
-
-
 
 const getAllMedia = async (data)=>{
     let url =  "http://"+ await getIpaddress()+"/api/" + media
@@ -202,8 +202,6 @@ const getAllMedia = async (data)=>{
     let resp= getServiceData(url)
    
     return resp
-
-
 }
 
 const deleteMedia = async(id)=>{
@@ -256,8 +254,6 @@ const getScehdaulsForChannel = async(id)=>{
 
     return axios.get('http://'+await getIpaddress()+api+channels+id+"/"+scheduledplaylist)
 
-
-
 }
 
 const updateSchedule = async(id,data)=>{
@@ -306,6 +302,17 @@ const addNewDevice = async(data)=>{
 }
 
 
+const assignChannelToDevice = async(data,key)=>{
+
+    let url = "http://"+ await getIpaddress()+"/api/" +device + key
+
+
+
+    return putServiceData(url,data)
+
+}
+
+
 
 const getAllChannels = async()=>{
     
@@ -344,6 +351,24 @@ const deleteChannel = async(id)=>{
 
 
 
+const SignUpNewUser = async (data)=> {
+
+    let url =  "http://"+ await getIpaddress()+"/api/" +users + signup
+    return postServiceData(url,data)
+
+}
+
+const Login = async(data)=> {
+    let url =  "http://"+ await getIpaddress()+"/api/" +users + login
+
+
+    return postServiceData(url,data)
+
+}
+
+
+
+
 
 export  { 
 
@@ -353,11 +378,13 @@ export  {
           
         addScheduledEvent,getScehdaulsForChannel,getScehdauls,updateSchedule,deleteSchedule,
          
-        getAllDevices,addNewDevice,getDeviceStatus,
+        getAllDevices,addNewDevice,getDeviceStatus,assignChannelToDevice,
         
         getAllChannels,addNewChannel,updateChannel,deleteChannel,
 
-        displayMessageOnNewEntry
+        displayMessageOnNewEntry,
+
+        SignUpNewUser,Login
     
 
         };
